@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estrellas y Frases para Amanda</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            position: relative;
+            height: 100%;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(0,255,0,1) 50%, rgba(0,0,255,1) 100%);
+            animation: shoot 2s linear infinite;
+            opacity: 0;
+            transform: rotate(45deg);
+        }
+
+        .centered-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            z-index: 2;
+            max-width: 80%;
+            padding: 20px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            line-height: 1.5;
+        }
+
+        @keyframes shoot {
+            0% {
+                opacity: 1;
+                transform: translate(-100px, -100px) rotate(45deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(10vw, 100vh) rotate(45deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="centered-text" id="frase"></div>
+    
+    <div class="container">
+    </div>
+
+    <script>
+        // Array con las 104 frases
+        const frases = [
+            "Amanda, tus ojos son el bosque donde prefiero perderme antes que encontrar la salida.",
+            "En ese verde y marrón de tu mirada, cultivo las flores más frágiles de mi alma.",
+            "Tus ojos son dos mundos: uno de tierra firme y otro de mar embravecido.",
+            "¿Quién pintó de ámbar y esmeralda las puertas de tu alma? Quiero darle las gracias.",
+            "Ojos como lagos en otoño: profundos, misteriosos y llenos de vida suspendida.",
+            "Si mirarme fuera un delito, dejaría que tus ojos me condenaran a cadena perpetua.",
+            "En tus pupilas hay un jardín secreto donde solo crece el amor que te tengo.",
+            "Tus ojos son la brújula que me guía cuando pierdo el norte sin ti.",
+            "Verdes como la esperanza, marrones como la tierra… En ellos siembro mis versos.",
+            "Amanda, tus ojos son la única tormenta a la que me rendiría sin luchar.",
+            "Me ahogo en el océano de tus ojos y no quiero que me rescaten.",
+            "Si los ojos son ventanas al alma, los tuyos muestran un paraíso que quiero habitar.",
+            "Ojos de musgo y miel: dulces, salvajes e imposibles de olvidar.",
+            "En tu mirada hay un atardecer eterno donde el marrón besa al verde.",
+            "Tus ojos son mapas estelares: sigo sus constelaciones y siempre llego a ti.",
+            "¿Cómo explicar que en dos pequeños círculos de color cabe toda mi felicidad?",
+            "Ojos que reflejan el bosque y el desierto: en ellos soy explorador de tu corazón.",
+            "Si pudiera enmarcar tu mirada, sería la obra maestra que colgaría en mi silencio.",
+            "Tus pestañas son las cortinas de un teatro donde solo actúa el amor.",
+            "Amanda, en tus ojos guardo las promesas que no me atrevo a decir en voz alta.",
+            "Ojos que mezclan el café de la mañana y el verde de la hierba fresca… Adictivo.",
+            "Si mirar fuera un arte, tú serías la Mona Lisa de cada uno de mis días.",
+            "En tus ojos veo el lugar donde el otoño y la primavera se dan la mano.",
+            "Ojos de fuego y calma: me queman y me sanan en un solo parpadeo.",
+            "Si el amor tuviera color, sería el verde-marrón de tu mirada, Amanda.",
+            "Tu pelo es el río de oro por el que navegan mis fantasías más secretas.",
+            "Rubia como el trigo bajo el sol de julio: en ti cosecho mis mejores sueños.",
+            "Cada hebra de tu cabello es un hilo de luz que teje mi tranquilidad.",
+            "Si el sol tuviera una hermana, llevaría tu nombre y tu melena dorada.",
+            "Tu pelo es la melodía visual que hace bailar hasta a la oscuridad.",
+            "Amanda, tu cabello es el atardecer que nunca quise que terminara.",
+            "En tus rizos rubios guardas el secreto de cómo iluminar un corazón herido.",
+            "Dorada como la ambrosía de los dioses: prohibida, pero irresistible.",
+            "Tu pelo es la bandera que ondea en el país imaginario donde quiero vivir contigo.",
+            "Si el oro pudiera cantar, tendría el susurro de tu cabello al viento.",
+            "Rubia como una antorcha en la noche: sigo tu luz para no perderme.",
+            "En cada mechón tuyo hay un verso suelto esperando a ser escrito.",
+            "Tu cabello es el puente entre el cielo y la tierra: por él bajo a buscarte.",
+            "Llevas el sol en la cabeza y la luna en la piel: eres mi universo completo.",
+            "Amanda, si el amor fuera un color, sería el rubio desordenado de tus días felices.",
+            "Tu melena es la caricia que el viento le roba a los campos de trigo.",
+            "Rubia como la chispa que enciende mis locuras más dulces.",
+            "Tu pelo es el mapa que sigo para llegar al tesoro de tu corazón.",
+            "Dorada, radiante, imposible… Eres el sueño que mi mente no quiso soltar.",
+            "Si cortara tu cabello, caerían estrellas en lugar de hebras.",
+            "Tu rubio no es un color: es la luz que me recuerda que existes.",
+            "En tu pelo bailan los rayos de sol que se escaparon del mediodía.",
+            "Amanda, eres la dueña del oro más puro: no está en la tierra, está en ti.",
+            "Tu cabello es la melodía dorada que mi corazón repite en silencio.",
+            "Rubia como la miel que endulza hasta mis pensamientos más amargos.",
+            "Tu piel es el lienzo donde pinto mis deseos con dedos temblorosos.",
+            "Blanca como el papel en blanco donde escribo ‘te quiero’ mil veces.",
+            "En tu piel veo la nieve que no teme al verano: fría al tacto, cálida por dentro.",
+            "Eres mármol viviente: escultura que late y me vuelve loco de amor.",
+            "Tu blancura es la luna hecha mujer: pálida, brillante, inalcanzable.",
+            "Amanda, tu piel es el reflejo de todo lo puro que queda en el mundo.",
+            "Si la porcelana tuviera vida, se llamaría como tú y brillaría igual.",
+            "En tu tez blanca se posan mis besos como mariposas en algodón.",
+            "Blanca como el azúcar más fino: dulce, delicada y necesaria.",
+            "Tu piel es el faro que guía mis labios en la noche más oscura.",
+            "Eres nieve que no se derrite: fría al principio, pero ardiente al descubrirte.",
+            "Amanda, en tu blancura escribo con tinta invisible todo lo que callo.",
+            "Tu piel es el alba que rompe con mis noches de insomnio.",
+            "Blanca como el lirio que crece entre espinas: bella, fuerte y única.",
+            "Si pudiera envolverme en tu piel, sería la mortaja más dulce de la historia.",
+            "Eres cera de vela: blanca, suave y destinada a derretirse con mi fuego.",
+            "Tu tez es el paisaje donde el invierno y la primavera se dan un beso.",
+            "Blanca como la sal que cura mis heridas y da sabor a mis días grises.",
+            "Amanda, tu piel es el espejo donde me reflejo más humano, más tuyo.",
+            "En tu blancura encuentro la paz que el mundo no supo darme.",
+            "Eres la nieve que pisé de niño: pura, intacta y llena de promesas.",
+            "Tu piel es el mármol que los dioses usaron para esculpir la perfección.",
+            "Blanca como el vuelo de una garza: elegante, libre y sobre todo mía.",
+            "Si el amor fuera táctil, sería la suavidad de tu piel rozando la mía.",
+            "Amanda, eres la luna llena: blanca, redonda y dueña de mis mareas.",
+            "Tu sonrisa es el arcoíris que aparece después de todas mis tormentas.",
+            "Cuando sonríes, hasta el tiempo olvida su prisa para mirarte.",
+            "Amanda, tu sonrisa es la melodía que mi corazón tararea en loop.",
+            "Si la felicidad tuviera forma, sería la curva de tus labios al reír.",
+            "Tu sonrisa es el sol que derrite los inviernos de mi alma.",
+            "Dientes de perla, labios de cereza… Tu risa es un festín prohibido.",
+            "Cuando sonríes, escribo poemas en el aire con las letras de tu alegría.",
+            "Tu sonrisa es el hechizo que convierte mis miedos en mariposas.",
+            "Amanda, si sonreír fuera un arte, tú serías la obra maestra del Louvre.",
+            "En tu sonrisa guardas la luz que necesito para no temer a la oscuridad.",
+            "Rubia, blanca, de ojos marrones… Eres la combinación que desarma al mundo.",
+            "En ti se juntan el oro del sol, la pureza de la nieve y la magia del bosque.",
+            "Amanda, eres la ecuación perfecta: belleza + dulzura = mi perdición.",
+            "Tu pelo es el marco dorado de un cuadro donde tus ojos son la obra principal.",
+            "Blanca como la luna, rubia como el día: eres el eclipse que me deja ciego de amor.",
+            "Ojos de tierra fértil, piel de alabastro… En ti cultivo mis más locos deseos.",
+            "Sonríes, y siento que el universo conspiró para que existieras.",
+            "Eres la sinfonía que toca el viento al pasar por tu pelo y rozar tu sonrisa.",
+            "Amanda, en ti se abrazan la luz y la naturaleza: soy solo el testigo afortunado.",
+            "Tu sonrisa es la llave que abre todas las puertas de mi corazón.",
+            "Si mezclas tu rubio con tu blancura, obtienes el color de la felicidad.",
+            "Ojos que hipnotizan, sonrisa que desarma… Eres mi combo perfecto.",
+            "Amanda, eres el resultado de que el amor se disfrace de mujer.",
+            "En tu rostro se esconde el secreto de cómo volver hermosa hasta la lluvia gris.",
+            "Rubia, blanca, de mirada verde-marrón… Eres el milagro que nunca pedí, pero siempre quise.",
+            "Eres el oro de un tesoro, la pureza de un lago y la vida de un bosque.",
+            "Si el rubio es tu corona, tu sonrisa es el cetro que gobierna mi paz.",
+            "Entre tu piel blanca y tus ojos marrones…, mi corazón se queda sin escondite."
+        ];
+
+        // Generar número aleatorio
+        function getRandomFrase() {
+            const randomIndex = Math.floor(Math.random() * frases.length);
+            document.getElementById('frase').textContent = frases[randomIndex];
+        }
+
+        // Generar estrellas fugaces con haz de luz
+        function createShootingStars() {
+            const container = document.querySelector('.container');
+            for (let i = 0; i < 8; i++) {
+                const star = document.createElement('div');
+                star.className = 'shooting-star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                star.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+                container.appendChild(star);
+            }
+        }
+
+        // Inicializar
+        window.onload = function() {
+            createShootingStars();
+            getRandomFrase();
+        }
+    </script>
+</body>
+</html>
